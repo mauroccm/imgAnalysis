@@ -11,12 +11,15 @@
 
 initTime = getTime(); // start time
 
-//k = 1; // Methods number. From 0 to 16.
-
 // The imput directory with TIFF images
 //dirIn = getDirectory("Input directory"); 
-dirIn = "/home/mauromorais/Pictures/Exp19/hacat_HOE_clean_v13/";
+dirIn = "/home/mauromorais/Pictures/Exp19/hacat_HOE_clean_v10/";
 imgList = getFileList(dirIn);	//get the image file list
+
+// The output directory with text result tables
+//dirOut = getDirectory("Output directory");
+dirOut = "/home/mauromorais/Pictures/Exp19/AutoCount_fromCleanV10/";
+
 
 // Global threshold methods
 /*
@@ -25,6 +28,8 @@ Methods = newArray("Default","Huang","Intermodes","IsoData",
 	"Minimum","Moments","Otsu","Percentile",
 	"RenyiEntropy","Shanbhag","Triangle","Yen");
 */
+//k = 1; // Methods number. From 0 to 16.
+
 Methods = getList("threshold.methods");
 
 // Variables
@@ -35,10 +40,6 @@ thresholdMethod = newArray(imgList.length);
 
 methodTime = newArray(Methods.length);
 methodMemory = newArray(Methods.length);
-
-// The output directory with text result tables
-//dirOut = getDirectory("Output directory");
-dirOut = "/home/mauromorais/Pictures/Exp19/tmp/";
 
 // Set the measurements and configuration
 run("Set Measurements...", "area mean standard modal min centroid center perimeter bounding fit shape feret's integrated median skewness kurtosis area_fraction stack limit display nan redirect=None decimal=4");
@@ -103,6 +104,8 @@ for (k=0; k<Methods.length; k++){ //loop Methods
 	}
 	
 	//Array.show("AutoCellCounter_"+Methods[k]+" (indexes)", imgList, thresholdMinValue, cellCount, thresholdMethod); //thresholMaxValue
+
+	// Anotate the counting results and save
 	run("Clear Results");
 	for(i=0;i<imgList.length; i++){
 	//for(i=0;i<24; i++){

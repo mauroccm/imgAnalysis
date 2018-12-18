@@ -7,13 +7,15 @@
 require(tidyverse)
 
 # Variables ####
-# open auto counts 
-path  = "results/2018-06-28/AutoCellCounter/"
+# open auto counts ####
+path  = "results/2018-08-09_autoCount_analysis/AutoCount_fromCleanV13/autoCounts/"
+analysisSummaryOutput = "results/2018-08-09_autoCount_analysis/analysisSummary_fromCleanV13.txt"
 files = dir(path, pattern = ".txt")
+
 # files = files[1:17] # remove the log file.
 # files = files[-9] # remove the MinError file #why?
 
-# open manual counts
+# open manual counts ####
 manualCount = read.csv("results/2017-10-30 autoCounter/Exp19_manualCount.csv")
 tail(manualCount) # just checking...
 
@@ -40,7 +42,8 @@ CountData = rbind(manualCount, autoCounter) %>%
   mutate(imgIndex = rep(1:240, 18))
 tail(CountData) # just checking
 
-# Correlate manual and auto count ####
+# Metrics for methods evaluation ####
+# Correlate manual and auto count
 MethodsCounts = select(CountData, cellCount, thresholdMethod, imgIndex) %>%
   spread(thresholdMethod, cellCount)
 tail(MethodsCounts)
@@ -48,30 +51,30 @@ tail(MethodsCounts)
 MethodsCorrelation = apply(MethodsCounts, 2, cor, x=MethodsCounts[,2], 
                            use="pairwise.complete.obs")[-1] # remove the imgIndex
 
-# Root mean square error ####
-# source(../../RMSE.R) # functions for RMSE e MAE
+# Root mean square error
+source("../RMSE.R") # functions for RMSE e MAE
 MethodsRMSE = apply(MethodsCounts, 2, RMSE, actual=MethodsCounts[,"Manual"])[-1]
 MethodsMAE = apply(MethodsCounts, 2, MAE, actual=MethodsCounts[,"Manual"])[-1]
 
-# OEData ####
+# OEData
 # OEData is the ratio of the difference of observed and expected value,
 # and the expected value (manual count). $|O - E| / E$
 OEData = select(CountData, imgIndex, OE, thresholdMethod) %>%
   spread(key= thresholdMethod, value = OE)
-tail(OEData)
+# tail(OEData)
 
 MethodsFDR = apply(OEData, 2, mean)[-1]
 
 # Save Correlation and FDR results table ####
 methodsAnalysis = data.frame(Methods=names(MethodsCorrelation),
-                             Correlations=MethodsCorrelation,
-                             FDR=MethodsFDR,
-                             RMSE=MethodsRMSE,
-                             MAE=MethodsMAE
+                             Correlations=round(MethodsCorrelation, 4),
+                             FDR=round(MethodsFDR, 4),
+                             RMSE=round(MethodsRMSE, 4),
+                             MAE=round(MethodsMAE, 4)
 )
-View(methodsAnalysis)
+# View(methodsAnalysis)
 
-write.table(methodsAnalysis,
-           "results/2018-06-28/autoCounterV127_imgCleanerV13_methodsAnalysisResults.txt",
-           row.names=F)
+write.table(methodsAnalysis, analysisSummaryOutput, row.names=F)
+
 save.image("AutoCounter.RData")
+rm(list=ls())

@@ -4,7 +4,7 @@
 #
 # Mauro Morais, 2018-07-04
 INDIR=/home/mauromorais/R/imgAnalysis/scripts
-OUTDIR=/home/mauromorais/R/imgAnalysis/results/2018-07-04
+OUTDIR=/home/mauromorais/R/imgAnalysis/results/2018-08-09/AutoCount_fromCleanV13/performance
 
 # loop para o n de vezes que o script será executado
 for j in run01 run02 run03 run04 run05

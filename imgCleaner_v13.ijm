@@ -1,5 +1,5 @@
 // imgCleaner.ijm v.1.3
-// Script para selecionar canal azul e "limpar"
+// Script para selecionar canal azul e processar imagens
 // 2018-03-26, Mauro Morais
 
 in = getDirectory("Input files");
@@ -22,7 +22,7 @@ for (i=0; i<list.length; i++) {
 	run("Despeckle");
 	run("Subtract...", "value=10");
 	run("Gaussian Blur...", "sigma=2"); // added in version 1.3 
-	saveAs("Tiff", out+nome+".tif");
+	saveAs("Tiff", out+nome+"_HOE.tif");
 	close();
 }
 print("DONE!");

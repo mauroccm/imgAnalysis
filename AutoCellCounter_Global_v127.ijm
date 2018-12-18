@@ -1,10 +1,11 @@
 /*
-// AutoCellCounter_Global_v125.ijm
+// AutoCellCounter_Global_v127.ijm
 // Script para contagem de núcleos marcados com Hoechst em imagens de 
 // fluorescência capturadas com filtro azul (DAPI).
 // As imagens devem ser 8-bit do canal azul após terem sido limpadas
 // com imgCleaner.ijm. Este script foi desenhado para ser executado no modo
-// headless com apenas um método através de um script do terminal.
+// headless com apenas um método através de um script do terminal. Os métodos
+// são chamados, um de cada vez, no scriptPerformance_v1.sh .
 
 // Data: 2018-06-28; v1.2.7
 */
@@ -18,7 +19,8 @@ imgList = getFileList(dirIn);	//get the image file list
 
 // The output directory with text result tables
 //dirOut = getDirectory("Output directory");
-dirOut = "/home/mauromorais/R/imgAnalysis/results/2018-07-04/AutoCellCounter/";
+//dirOut = "/home/mauromorais/Pictures/Exp19/AutoCount_fromCleanV13/";
+dirOut = "/home/mauromorais/R/imgAnalysis/results/2018-08-09/AutoCount_fromCleanV13/autoCounts/";
 
 // Global threshold methods
 /*
@@ -31,7 +33,7 @@ Methods = newArray("Default","Huang","Intermodes","IsoData",
 //k = 1; // Methods number. From 0 to 16.
 
 // Variables
-Methods = getArgument();
+Methods = getArgument(); // get the argument from the shell script
 thresholdMinValue = newArray(imgList.length);
 //thresholdMaxValue = newArray(imgList.length);
 cellCount = newArray(imgList.length);

@@ -2,7 +2,7 @@ library(rgl); library(data.table); library(tidyverse)
 
 # variables
 mainTitle = "sim06"
-outputDate = "2018-05-14"
+outputDate = "2018-07-27"
 
 # input data from the sim06 output
 simOut = fread("data/2018-02-23/sim06/out.txt", header=T) %>%
@@ -17,24 +17,30 @@ simOut[,"COLS"] = cols
 
 # subsetting the data
 simOut.sub = filter(simOut, X >= 0, X < 100, Y >= 0, Y < 100)
-write.table(simOut.sub, "results/2018-05-14/sim06/simOutSub.csv", 
+write.table(simOut.sub, paste0("results/", outputDate, "/simOutSub.csv"), 
             row.names=F)
 
-# plots
-light=T # light the materials?
-r3dDefaults$bg$color = "black" # set the bg color
-par3d(windowRect = c(700, 150, 1212, 662)) # to plot at 512 x 512 px
-# open3d()
-view3d(theta=0, phi=0); par3d(zoom=0.62) # set up the view plane
-material3d(lit=light, specular="#000000")
-# decorate3d(col="white")
-# light3d(theta=0, phi=0, ambient="#000000", 
-#         diffuse="#000000", specular="#000000")
-# rgl.light(theta=0, phi=0, viewpoint.rel=F)
-ids = with(simOut.sub,
-           spheres3d(x=X, y=Y, z=Z, radius=RADIUS, col=COLS,
-                     shininess=128, forceClipregion=T)["clipplanes"]
-)
+# plots ####
+{
+  light=T # light the materials?
+  r3dDefaults$bg$color = "black" # set the bg color
+  par3d(windowRect = c(700, 150, 1212, 662)) # to plot at 512 x 512 px
+  # open3d()
+  view3d(theta=0, phi=0); par3d(zoom=0.62) # set up the view plane
+  material3d(lit=light, specular="#000000")
+  # decorate3d(col="white")
+  # light3d(theta=0, phi=0, ambient="#000000", 
+  #         diffuse="#000000", specular="#000000")
+  # rgl.light(theta=0, phi=0, viewpoint.rel=F)
+  ids = with(simOut.sub,
+             spheres3d(x=X, y=Y, z=Z, radius=RADIUS, col=COLS,
+                       shininess=128, forceClipregion=T)["clipplanes"]
+  )
+  box3d(color="red", shininess=100)
+}
+
+play3d(spin3d(axis=c(1,1,0))) # to test the animation
+movie3d(spin3d(axis=c(1,1,0)), fps=10, duration=12, dir="./tmp/", clean=F)
 
 if(light){
   for(i in 8:1){
@@ -51,14 +57,15 @@ if(light){
   }
   
 }
-clipplanes3d(0,0,-1, 4)
+# clipplanes3d(0,0,-1, 4)
 # planes3d(0,0,1,-4, color="green", alpha=1) # plot a plane in the box
 
 # k = scene3d()
-# widget = rglwidget(k) %>%
+# widget = rglwidget(k)
 #   playwidget(clipplaneControl(d = c(0, 7), clipplaneids = ids["clipplanes"]),
 #              start = 0, stop = 1, step = 0.01, rate = 0.5)
 
+writeWebGL(dir="~/R/imgAnalysis/results/2018-07-27/")
 
 rgl.close()
 # plot3d(k)
