@@ -159,12 +159,17 @@
 
 		// get cell area projection metrics
 		Table.sort("YStart"); // so it matches with the final results
+		Major = newArray(nResults);
+		Minor = newArray(nResults);
 		AR = newArray(nResults);
 		Circ = newArray(nResults);
 		Angle = newArray(nResults);
 		Feret = newArray(nResults);
 		FeretAngle = newArray(nResults);
+		
 		for(l = 0; l < nResults; l++){
+			Major[l] = getResult("Major", l);
+			Minor[l] = getResult("Minor", l);
 			AR[l] = getResult("AR", l);
 			Circ[l] = getResult("Circ.", l);
 			Angle[l] = getResult("Angle", l);
