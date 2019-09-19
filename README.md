@@ -31,10 +31,8 @@ This macro toolset contains a set of ImageJ's macro functions designed to proces
 #### Instalation
 1. Place the `EpithelialTopologyToolbox.ijm` file in your `Fiji.app/macros/toosets/` folder.
 2. Start Fiji.
-3. Go to _Plugins > Macros > Install..._ and select the `EpithelialTopologyToolbox.ijm` file in your `toolsets` folder.
+3. Go to _Plugins > Macros > Install..._ and select the `EpithelialTopologyToolbox.ijm` file in your `toolsets` folder. Or click on the `>>` icon and select the toolset.
 
 **DISCLAIMER**: Original content from this work may be used under the terms of the Creative Commons Attribution 3.0 licence (http://creativecommons.org/licenses/by/3.0). Any further distribution of this work must maintain attribution to the author(s).
 
 **WARRANTIES**: None. Use at your own risk.
-
-# References
