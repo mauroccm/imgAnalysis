@@ -1,4 +1,4 @@
-# README Image Analysis Scripts
+# Image Analysis Scripts
 Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model" project. Please cite the [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
 
 ***
