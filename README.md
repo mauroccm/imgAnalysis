@@ -11,7 +11,7 @@ USAGE:
 
 ***
 ## computerPerformance.sh
-Scrip to evaluate the computer performance when calling. AutoCount.ijm macro script. The script calls the Fiji macro `AutoCounter.ijm` to perform the count. (Original script version is AutoCellCounter_Global_v127.ijm)
+Scrip to evaluate the computer performance when calling `AutoCount.ijm` macro script. The script calls the Fiji macro `AutoCounter.ijm` to perform the count. (Original script version is `AutoCellCounter_Global_v127.ijm`)
 
 ***
 ## Epithelial Topology Toolbox.ijm
