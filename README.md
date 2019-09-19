@@ -1,21 +1,5 @@
----
-title: "Image analysis notebook"
-author: "Mauro C. Cafundó Morais"
-date: '2019-09-19'
-output:
-  html_document:
-    df_print: paged
-    fig_caption: true
-    fig_width: 4
-    fig_height: 3
-    keep_md: true
-bibliography: "refs.bib"
-csl: "vancouver.csl"
----
-# imgAnalysis
-Scripts in IJ macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model". Please cite [@morais_stochastic_2017] :)
-
-Mauro Morais, 2019-09-19
+# Image Analysis Scripts README
+Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model". Please cite the [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
 
 ***
 ### AutoCount.ijm
