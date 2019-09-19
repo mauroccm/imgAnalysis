@@ -1,6 +1,10 @@
-/*	My macro tools
+/*	Epithelial Topology Toolbox
+ * 	This macro toolset contains a set of ImageJ's macro functions designed to 
+ *	process 8-bit images (to make it more "segmentable" for thresholding 
+ *	models); to estimate the cell area projection (Voronoi tesselation); and
+ *  to draw epithelial topology mesh over the cells (Region connection calculus)
  *
- *	Tools: 
+ *	Functions: 
  * 		cellPosition2areaSegment(): get the nuclei postions (center of mass from 
  *		the Results table) and build the Voronoi diagram (the cell area 
  *		projection).
@@ -28,31 +32,40 @@
  *		imgProcessor() will be used.
  *
  * Mauro Morais, 2019-04-30
+ *
+ * DISCLAIMER: Original content from this work may be used under the terms of 
+ * the Creative Commons Attribution 3.0 licence 
+ * (http://creativecommons.org/licenses/by/3.0). Any further distribution of 
+ * this work must maintain attribution to the author(s).
+ *
+ * WARRANTIES: None. Use at your own risk.
+ * 
  */
 
  var myMenu = newMenu("Epithelial Topology Menu Tool", 
- 	newArray("imgProcessing_v10", "imgProcessing_v11", "imgProcessing_v12", 
- 		"imgProcessing_v13", "imgProcessing_v14", "imgProcessing_v16", 
- 		"imgProcessing_v17", 
+ 	newArray(
+ 		//"imgProcessing_v10", "imgProcessing_v11", "imgProcessing_v12", 
+ 		//"imgProcessing_v13", "imgProcessing_v14", "imgProcessing_v16", 
+ 		//"imgProcessing_v17", 
  		"-", 
- 		"imgProcessor", 
+ 		"imgProcessor (v16)", 
  		"-", 
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
  		"adjMatrix2mesh"));
 
- macro "Epithelial Topology Menu Tool - C606F00ffCff0T3c12M" {
+ macro "Epithelial Topology Menu Tool - C606F00ffCff0T1b08ET6b08TTbb08T" {
 
  	MCmd = getArgument();
 
  	if(MCmd != "-") {
- 		if(MCmd == "imgProcessing_v10") {imgProcessing_v10();}
- 		if(MCmd == "imgProcessing_v11") {imgProcessing_v11();}
- 		if(MCmd == "imgProcessing_v12") {imgProcessing_v12();}
- 		if(MCmd == "imgProcessing_v13") {imgProcessing_v13();}
- 		if(MCmd == "imgProcessing_v14") {imgProcessing_v14();}
- 		if(MCmd == "imgProcessing_v16") {imgProcessing_v16();}
- 		if(MCmd == "imgProcessing_v17") {imgProcessing_v17();}
- 		if(MCmd == "imgProcessor") {imgProcessor();}
+ 		//if(MCmd == "imgProcessing_v10") {imgProcessing_v10();}
+ 		//if(MCmd == "imgProcessing_v11") {imgProcessing_v11();}
+ 		//if(MCmd == "imgProcessing_v12") {imgProcessing_v12();}
+ 		//if(MCmd == "imgProcessing_v13") {imgProcessing_v13();}
+ 		//if(MCmd == "imgProcessing_v14") {imgProcessing_v14();}
+ 		//if(MCmd == "imgProcessing_v16") {imgProcessing_v16();}
+ 		//if(MCmd == "imgProcessing_v17") {imgProcessing_v17();}
+ 		if(MCmd == "imgProcessor (v16)") {imgProcessor();}
  		if(MCmd == "cellPosition2areaSegment") {cellPosition2areaSegment();}
  		if(MCmd == "adjMatrix2mesh") {adjMatrix2mesh();}
  		if(MCmd == "NFN_count") {NFN_count();}
@@ -76,7 +89,7 @@
 	} else {
 
 		// Image size
-		width = 1920; height = 1536;
+		width = 1280; height = 960; // width = 1920; height = 1536; 
 
 		Dialog.create("Choose resolution");
 		Dialog.addNumber("Width:", width);
@@ -166,7 +179,8 @@
 		Angle = newArray(nResults);
 		Feret = newArray(nResults);
 		FeretAngle = newArray(nResults);
-		
+		Aniso = newArray(nResults);
+
 		for(l = 0; l < nResults; l++){
 			Major[l] = getResult("Major", l);
 			Minor[l] = getResult("Minor", l);
@@ -175,6 +189,9 @@
 			Angle[l] = getResult("Angle", l);
 			Feret[l] = getResult("Feret", l);
 			FeretAngle[l] = getResult("FeretAngle", l);
+
+			// Calculate the cell anisotropy (Legoff, 2013, Development,  doi:10.1242/dev.090878)
+			Aniso[l] = ((Major[l]/2) - (Minor[l]/2)) / ((Major[l]/2) + (Minor[l]/2));
 		}
 
 		// Get cell coordinates
@@ -192,7 +209,7 @@
 		}
 
 		// Set measurements
-		run("Set Measurements...", " redirect=None decimal=3");
+		run("Set Measurements...", " redirect=None decimal=4");
 
 		// Count neighbors
 		for(i = 0; i < initialParticles; i ++) {
@@ -234,7 +251,7 @@
 
 		// to show all particles count.
 		Array.show(imgName, cellID, XMass, YMass, neighborArray, markedNeighborArray, 
-			Major, Minor, AR, Circ, Angle, Feret, FeretAngle);
+			Major, Minor, AR, Circ, Angle, Feret, FeretAngle, Aniso);
 
 	}
 }
@@ -248,6 +265,10 @@
 // https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/
 
 function adjMatrix(){
+
+	// Set measurements
+	run("Set Measurements...", "area centroid center perimeter bounding shape feret's fit nan redirect=None decimal=4");
+
 
 	// Check if the cell area segments image is open.
 	if (nImages == 0) { 
@@ -275,8 +296,8 @@ function adjMatrix(){
 		selectWindow("RCC");
 
 		// convert to binary
-		run("8-bit");
-		setThreshold(200, 220); // the NC relationship
+		//run("8-bit");
+		setThreshold(10, 14); // the NC relationship is numbr 13
 		run("Convert to Mask");
 
 		// clear the upper triangle
@@ -291,6 +312,144 @@ function adjMatrix(){
 
 }
 
+/*
+ * adjMatrix2mesh function draws the edges of the cell network over the area
+ * segment image.
+ * 
+ * INPUT: Cell area segments image and the binary adjMatrix image.
+ * OUTPUT: ROI manager with topology edges as ROIs and the edges
+ * results table.
+ */
+
+function adjMatrix2mesh(){ // RCC2mesh.ijm
+
+	// Set Measurements
+	edgeCol = "red";
+	imgID = getImageID();
+	imgName = File.nameWithoutExtension;
+	run("Clear Results");
+
+	// Get edges positions coordinates
+	selectWindow("adjMatrix");
+	//run();
+	run("Points from Mask"); // This is a Fiji command
+	getSelectionCoordinates(cellA, cellB); // the cell pairs indexes
+	
+	x0 = newArray(cellA.length);
+	y0 = newArray(cellA.length);
+
+	x1 = newArray(cellA.length);
+	y1 = newArray(cellA.length);
+
+	selectImage(imgID);
+	run("Analyze Particles...", " show=Masks display exclude clear include record in_situ");
+
+	for (j = 0; j < cellA.length; j++) {
+
+		//cell1 = cellA[j];
+		//cell2 = cellB[j];
+
+		x0[j] = getResult("XM", cellA[j]);
+		y0[j] = getResult("YM", cellA[j]);
+
+		x1[j] = getResult("XM", cellB[j]);
+		y1[j] = getResult("YM", cellB[j]);
+
+		selectImage(imgID);
+		makeLine(x0[j], y0[j], x1[j], y1[j]);
+		// drawLine(x0[j], y0[j], x1[j], y1[j]);
+		// roiManager("add & draw");
+		roiManager("add"); // Add edges to ROI manager to generate edges list
+		
+		
+	}
+
+	run("Clear Results");
+	roiManager("Show All without labels");
+	roiManager("Set Color", edgeCol);
+	roiManager("Set Line Width", 4);
+	//roiManager("Save", edgesDir + segmentsFiles[i] + "_edgesRois.zip");
+	roiManager("multi-measure measure_all");
+	//saveAs("Results", edgesDir + segmentsFiles[i] + "_edgesResults.txt");
+	//run("Clear Results");
+}
+
+/* Image processor function to increase signal to noise ratio (SNR)
+ * 
+ * run the processing steps:
+ * GB -> DS -> SB -> EC
+*/
+function imgProcessor(){
+	if(nImages == 0) {
+
+		warnings(3);
+
+		return;
+
+	} else {
+
+		run("Gaussian Blur...", "sigma=2"); 
+
+		run("Despeckle"); // the median filter
+		run("Subtract...", "value=10");
+	
+		run("Subtract Background...", "rolling=160 sliding");
+		
+		// this increase the noise, but improves the segmentation
+		run("Enhance Contrast", "saturated=0.35 normalize");
+		
+	}
+
+}
+
+/* The warning function */
+//
+// This function is called if something is missing from the user.
+
+function warnings(n) {
+	
+	if (n == 0){ // If there's no table.
+
+		msg = "Results table with cells center of mass required";
+	
+		exit(msg);
+	}
+
+	if (n == 1){ // If there's no image.
+
+		msg = "Cell area projections image required.";
+	
+		exit(msg);
+
+	}
+
+	if (n == 2) { // If the image is not binary
+
+		msg = "8-bit binary image (0 and 255) required.";
+
+		exit(msg);
+
+	}
+
+	if (n == 3) { // If there is no image open
+
+		msg = "8-bit image required.";
+
+		exit(msg);
+
+	}
+
+	if (n == 4) { //If there is no RGB image open
+
+		msg = "RGB image required.";
+
+		exit(msg);
+
+	}
+
+}
+
+/* Deprecated functions */
 // The image "cleaner" functions /
 //
 // These functions are use to "clean" the image, before binarization
@@ -478,137 +637,3 @@ function imgProcessing_v10() {
 	}
 }
 
-/*
- * RCC2mesh function draws the edges of the cell network over the area segment
- * image.
- * 
- * INPUT: Cell area segments image and the binary adjMatrix image.
- * OUTPUT: ROI manager with cellular topology as ROIs and the edges
- * results table.
- */
-
-function adjMatrix2mesh(){ // RCC2mesh.ijm
-
-	edgeCol = "red";
-	imgID = getImageID();
-	imgName = File.nameWithoutExtension;
-	run("Clear Results");
-
-	// Get edges positions coordinates
-	selectWindow("adjMatrix");
-	run("Points from Mask"); // This is a Fiji command
-	getSelectionCoordinates(cellA, cellB); // the cell pairs indexes
-	
-	x0 = newArray(cellA.length);
-	y0 = newArray(cellA.length);
-
-	x1 = newArray(cellA.length);
-	y1 = newArray(cellA.length);
-
-	selectImage(imgID);
-	run("Analyze Particles...", " show=Masks display exclude clear include record in_situ");
-
-	for (j = 0; j < cellA.length; j++) {
-
-		//cell1 = cellA[j];
-		//cell2 = cellB[j];
-
-		x0[j] = getResult("XM", cellA[j]);
-		y0[j] = getResult("YM", cellA[j]);
-
-		x1[j] = getResult("XM", cellB[j]);
-		y1[j] = getResult("YM", cellB[j]);
-
-		selectImage(imgID);
-		makeLine(x0[j], y0[j], x1[j], y1[j]);
-		// drawLine(x0[j], y0[j], x1[j], y1[j]);
-		// roiManager("add & draw");
-		roiManager("add"); // Add edges to ROI manager to generate edges list
-		
-		
-	}
-
-	run("Clear Results");
-	roiManager("Show All without labels");
-	roiManager("Set Color", edgeCol);
-	roiManager("Set Line Width", 4);
-	//roiManager("Save", edgesDir + segmentsFiles[i] + "_edgesRois.zip");
-	roiManager("multi-measure measure_all");
-	//saveAs("Results", edgesDir + segmentsFiles[i] + "_edgesResults.txt");
-	//run("Clear Results");
-}
-
-// The warning function /
-//
-// This function is called if something is missing from the user.
-
-function warnings(n) {
-	
-	if (n == 0){ // If there's no table.
-
-		msg = "Results table with cells center of mass required";
-	
-		exit(msg);
-	}
-
-	if (n == 1){ // If there's no image.
-
-		msg = "Cell area projections image required.";
-	
-		exit(msg);
-
-	}
-
-	if (n == 2) { // If the image is not binary
-
-		msg = "8-bit binary image (0 and 255) required.";
-
-		exit(msg);
-
-	}
-
-	if (n == 3) { // If there is no image open
-
-		msg = "8-bit image required.";
-
-		exit(msg);
-
-	}
-
-	if (n == 4) { //If there is no RGB image open
-
-		msg = "RGB image required.";
-
-		exit(msg);
-
-	}
-
-}
-
-/* Image processor function to increase signal to noise ratio (SNR)
- * 
- * run the processing steps:
- * GB -> DS -> SB -> EC
-*/
-function imgProcessor(){
-	if(nImages == 0) {
-
-		warnings(3);
-
-		return;
-
-	} else {
-
-		run("Gaussian Blur...", "sigma=2"); 
-
-		run("Despeckle"); 
-		run("Subtract...", "value=10");
-	
-		run("Subtract Background...", "rolling=160 sliding");
-		
-		// this increase the noise, but improves the segmentation
-		run("Enhance Contrast", "saturated=0.35 normalize");
-		
-	}
-
-}
