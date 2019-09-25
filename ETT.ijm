@@ -47,7 +47,10 @@
  		"imgProcessor (v16)", 
  		"-", 
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
- 		"adjMatrix2mesh"));
+ 		"adjMatrix2mesh", 
+ 		"-", 
+ 		"About"
+ 	));
 
  macro "Epithelial Topology Menu Tool - C606F00ffCff0T1b08ET6b08TTbb08T" {
 
@@ -66,6 +69,7 @@
  		if(MCmd == "adjMatrix2mesh") {adjMatrix2mesh();}
  		if(MCmd == "NFN_count") {NFN_count();}
  		if(MCmd == "adjMatrix (RCC)") {adjMatrix();}
+ 		if(MCmd == "About") {about();}
  	}
  }
 
@@ -246,7 +250,7 @@
 		run("glasbey");
 
 		// to show all particles count.
-		Array.show(imgName, cellID, XMass, YMass, neighborArray, markedNeighborArray, 
+		Array.show(imgName + "_NFN", cellID, XMass, YMass, neighborArray, markedNeighborArray, 
 			Major, Minor, AR, Circ, Angle, Feret, FeretAngle, Aniso);
 
 	}
@@ -277,7 +281,8 @@ function adjMatrix(){
 
 		setBackgroundColor(0, 0, 0);
 
-		imgName = getTitle();
+		//imgName = getTitle();
+		imgName = File.nameWithoutExtension;
 		
 		id = getImageID();
 
@@ -285,24 +290,25 @@ function adjMatrix(){
 
 		run("Duplicate...", "title=copy");
 
-		run("RCC8D Multi", "x=" + imgName + " y=copy show=RCC8D+");
+		/* The latest version of RCC8D plugin is much faster v.2.5 is much faster */
+		run("RCC8D UF Multi", "x=" + imgName + ".tif y=copy show=RCC8D+");
 
 		close("copy");
 
 		selectWindow("RCC");
 
-		// convert to binary
-		//run("8-bit");
-		setThreshold(10, 14); // the NC relationship is numbr 13
+		/* convert to binary */
+		run("8-bit");
+		setThreshold(167, 255); // the NC relationship is numbr 13
 		run("Convert to Mask");
 
-		// clear the upper triangle
+		/* clear the upper triangle */
 		getDimensions(width, height, channels, slices, frames);
 		makePolygon(0, 0, width, 0, width, height);
 		run("Clear", "slice");
 		run("Select None");
 
-		rename("adjMatrix");
+		rename(imgName + "_adjMatrix");
 
 	}
 
@@ -446,7 +452,7 @@ function warnings(n) {
 }
 
 /* Deprecated functions */
-// The image "cleaner" functions /
+/* The image "cleaner" functions */
 //
 // These functions are use to "clean" the image, before binarization
 
@@ -633,3 +639,26 @@ function imgProcessing_v10() {
 	}
 }
 
+function about() {
+	
+	text = ""
+		+"Epithelial Topology Toolbox\n"
+		+" \n"
+		+"This macro toolset contains a set of ImageJ's macro functions designed to: \n"
+		+" \n"
+		+"    1. process 8-bit images (to make it more \"segmentable\" for thresholding models);\n"
+		+"    2. estimate the cell area projection (Voronoi tesselation);\n"
+		+"    3. draw epithelial topology mesh over the cells (Region connection calculus).\n"
+		+" \n"
+		+"For the most recent version and instructions please visit my GitHub page.";
+
+	url = "https://github.com/mauroccm/imgAnalysis";
+
+	Dialog.create("About");
+		Dialog.addMessage(text);
+		//Dialog.addMessage("This is the Epithelial Topology Toolbox. \nThis macro toolset contains a set of ImageJ's macro functions designed\n to process 8-bit images (to make it more \"segmentable\" for thresholding models);\nto estimate the cell area projection (Voronoi tesselation);\nand to draw epithelial topology mesh over the cells (Region connection calculus).\nFor the most recent version please visit my GitHub page.");
+		Dialog.addMessage(url);
+		Dialog.addMessage("Created by Mauro Morais, 2019-04-30.");
+		Dialog.addHelp(url);
+	Dialog.show();
+}
