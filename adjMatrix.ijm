@@ -27,8 +27,8 @@ macro "adjMatrix" {
 
 		setBackgroundColor(0, 0, 0);
 
-		//imgName = getTitle();
-		imgName = File.nameWithoutExtension;
+		imgName = getTitle();
+		//imgName = File.nameWithoutExtension;
 		
 		id = getImageID();
 
@@ -37,7 +37,7 @@ macro "adjMatrix" {
 		run("Duplicate...", "title=copy");
 
 		/* The latest version of RCC8D plugin is much faster v.2.5 is much faster */
-		run("RCC8D UF Multi", "x=" + imgName + ".tif y=copy show=RCC8D+");
+		run("RCC8D UF Multi", "x=" + imgName + " y=copy show=RCC8D+");
 
 		close("copy");
 
@@ -50,11 +50,12 @@ macro "adjMatrix" {
 
 		/* clear the upper triangle */
 		getDimensions(width, height, channels, slices, frames);
-		makePolygon(0, 0, width, 0, width, height);
+		makePolygon(0, 0, width, 0, width, height); // to clear the upper triangle
 		run("Clear", "slice");
 		run("Select None");
 
 		rename(imgName + "_adjMatrix");
+		saveAs("tiff", imgName + "_adjMatrix.tif");
 
 	}
 

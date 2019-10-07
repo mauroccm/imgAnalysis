@@ -45,8 +45,8 @@
  		//"imgProcessing_v17", 
  		"-",
  		"Channel Select",
- 		"-", 
- 		"imgProcessor (v16)", 
+ 		"imgProcessor (v16)",
+ 		"Count Cells",
  		"-", 
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
  		"adjMatrix2mesh", 
@@ -70,6 +70,7 @@
  		//if(MCmd == "imgProcessing_v17") {imgProcessing_v17();}
  		if(MCmd == "Channel Select") {run("Install...", "install=" + imagej + "macros/ETT/channelSelect.ijm");}
  		if(MCmd == "imgProcessor (v16)") {runMacro("ETT/imgProcessor.ijm");}//{imgProcessor();}
+ 		if(MCmd == "Count Cells") {runMacro("ETT/CountCells.ijm");}
  		if(MCmd == "cellPosition2areaSegment") {runMacro("ETT/cellPosition2areaSegment.ijm");}//{cellPosition2areaSegment();}
  		if(MCmd == "adjMatrix2mesh") {runMacro("ETT/adjMatrix2mesh.ijm");}//{adjMatrix2mesh();}
  		if(MCmd == "NFN_count") {runMacro("ETT/NFN_count.ijm");}//{NFN_count();}

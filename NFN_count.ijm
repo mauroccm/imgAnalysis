@@ -124,6 +124,8 @@
 		run("Select None");
 		run("glasbey");
 
+		//saveAs("tiff", imgName + "_NFNcount.tif");
+
 		// to show all particles count.
 		Array.show(imgName + "_NFN", cellID, XMass, YMass, neighborArray, markedNeighborArray, 
 			Major, Minor, AR, Circ, Angle, Feret, FeretAngle, Aniso);

@@ -5,7 +5,9 @@
  * OUTPUT: cell area segments binary image
  * 
  */
- function cellPosition2areaSegment() {
+ 
+macro "cellPosition2areaSegment" {
+//function cellPosition2areaSegment() {
 	// Check if results table is open
 	if(!isOpen("Results")) {
 

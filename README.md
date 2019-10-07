@@ -16,31 +16,49 @@ Scrip to evaluate the computer performance when calling `AutoCount.ijm` macro sc
 ## ETT.ijm
 This macro toolset contains a set of ImageJ's macro functions designed to process 8-bit images (to make it more "segmentable" for thresholding models); to estimate the cell area projection (Voronoi tesselation); and to draw epithelial topology mesh over the cells (Region connection calculus).
 
+![](./figures/ETTFigure.png)
+
 ### Functions
+#### Channel Select
+This simple macro is a simple way to select the channel of interest from RGB images and convert it to 8-bit. Just click on the tool icon and select the color channel.
 
-#### `cellPosition2areaSegment()`
-get the nuclei postions (center of mass from the Results table) and build the Voronoi diagram (the cell area projection).
+![](./figures/channelSelectFigure.png)
 
-#### `NFN_count()`
-get the cell area projections and count the number of nearest neigbor of each cell. Cells in the edge of the image are counted as first neighbors, but excluded in the image (See the markedNeighborArray). Other shape descriptors are also obtained to measure anisotropy of each cell area projection. This function was dadpted from [Neighbor Analysis](https://imagej.net/BioVoxxel_Toolbox#Neighbor_Analysis) of the Biovoxxel Toolbox.
+#### imgProcessor
+apply processing filter to the image. Each version adds a different processing step. The current version is v0.16. We used the increase of the signal-to-noise ratio ([SNR](https://en.wikipedia.org/wiki/Signal-to-noise_ratio)) between the raw and processed images as selection criterion for processing steps.
+
+![](./figures/imgProcessorFigure.png)
+
+#### Count Cells
+his script counts the number of cells (particles) in the image. It opens the preprocessed 8-bit image, binarize with minimum cross-entropy thresholding model (Li's model) and count the number of particles.
+
+![](./figures/CountCellsFigure.png)
+
+#### cellPosition2areaSegment
+This macro get the nuclei postions (center of mass from the Results table) and build the Voronoi diagram (the cell area projection).
+
+![](./figures/cellPosition2areaSegmentsFigure.png)
+
+#### NFN_count
+This macro get the cell area projections and count the number of nearest neigbor of each cell. Cells in the edge of the image are counted as first neighbors, but excluded in the image (See the markedNeighborArray). Other shape descriptors are also obtained to measure anisotropy of each cell area projection. This function was dadpted from [Neighbor Analysis](https://imagej.net/BioVoxxel_Toolbox#Neighbor_Analysis) of the Biovoxxel Toolbox.
+
+![](./figures/NFNcountFigure.png)
 	
-#### `adjMatrix()`
-get the cell area projections and calculates the RCC table. The RCC table is the adjacency table of each cell and it depends on the RCC8D plugin 
+#### adjMatrix
+This macro get the cell area projections and calculates the RCC table. The RCC table is the adjacency table of each cell and it depends on the RCC8D plugin 
 (https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/).
 
-#### `adjMatrix2mesh()`
-draws the edges of the cell network over the area segment image. Need some improvements...
-	
-#### `imgProcessor()`
-apply processing filter to the image. Each version adds a different processing step. The current version is (v0.16). We used the increase of the signal-to-noise ratio ([SNR](https://en.wikipedia.org/wiki/Signal-to-noise_ratio)) between the raw and processed images as selection criterion for processing steps. 
+![](./figures/adjMatrixFigure.png)
+
+#### adjMatrix2mesh
+This macro draws the edges of the cell network over the area segment image. Open the adjacency matrix file, generated with the `adjMatrix` macro, rename it to `adjMatrix`, and open the cell area projection before runnig the script.
+
+![](./figures/adjMatrix2meshFigure.png)
 
 ### Instalation
 1. Unzip the [ETT.zip](./ETT.zip) file in your `Fiji.app/macros/` directory. This should create a new `./ETT/` folder in your macros directory.
 2. Start Fiji.
-3. Go to _Plugins > Macros > Install..._ and select the `ETT.ijm` file in your `toolsets` folder.
+3. Go to _Plugins > Macros > Install..._ and select the `ETT/ETT.ijm` file in your `toolsets` folder.
 
-### DISCLAIMER
-Original content from this work may be used under the terms of the Creative Commons Attribution 3.0 licence (http://creativecommons.org/licenses/by/3.0). Any further distribution of this work must maintain attribution to the author(s).
-
-### WARRANTIES
-None. Use at your own risk.
+### License
+These macro codes are free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation (GNU General Public License v3.0). It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY and LIABILITY; without even the implied warranty of fitness for a particular purpose. See the [GNU General Public License](./LICENSE) for more details. 
