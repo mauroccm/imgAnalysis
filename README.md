@@ -25,12 +25,12 @@ This simple macro is a simple way to select the channel of interest from RGB ima
 ![](./figures/channelSelectFigure.png)
 
 #### imgProcessor
-apply processing filter to the image. Each version adds a different processing step. The current version is v0.16. We used the increase of the signal-to-noise ratio ([SNR](https://en.wikipedia.org/wiki/Signal-to-noise_ratio)) between the raw and processed images as selection criterion for processing steps.
+This macro apply processing filter to the image. Each version adds a different processing step. The current version is v0.16. We used the increase of the signal-to-noise ratio ([SNR](https://en.wikipedia.org/wiki/Signal-to-noise_ratio)) between the raw and processed images as selection criterion for processing steps.
 
 ![](./figures/imgProcessorFigure.png)
 
 #### Count Cells
-his script counts the number of cells (particles) in the image. It opens the preprocessed 8-bit image, binarize with minimum cross-entropy thresholding model (Li's model) and count the number of particles.
+This script counts the number of cells (particles) in the image. It opens the preprocessed 8-bit image, binarize with minimum cross-entropy thresholding model (Li's model) and count the number of particles.
 
 ![](./figures/CountCellsFigure.png)
 
