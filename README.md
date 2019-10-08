@@ -1,5 +1,5 @@
-# Image Analysis Scripts
-Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model" project. Please cite the [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
+# Image Analysis Scripts and Macros
+Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model" project written by [Mauro C. C. Morais](mailto:mauroccm@gmail.com) at the Mathematical Modeling Group, Institute of Cancer of the State of São Paulo (ICESP), Department of Radiology and Oncology, Faculty of Medicine, University of São Paulo ([FMUSP](http://www.fm.usp.br/fmusp/portal/)), São Paulo, Brazil. Please cite our [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
 
 ***
 ## AutoCount.ijm
