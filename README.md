@@ -55,6 +55,9 @@ This macro draws the edges of the cell network over the area segment image. Open
 
 ![](./figures/adjMatrix2meshFigure.png)
 
+#### jaccardIndex
+This macro calculate the Jaccard Index ([JI](https://en.wikipedia.org/wiki/Jaccard_index)) between two images binary images and retunrs the value in the log window.
+
 ### Instalation
 1. Unzip the [ETT.zip](./ETT.zip) file in your `Fiji.app/macros/` directory. This should create a new `./ETT/` folder in your macros directory.
 2. Start Fiji.

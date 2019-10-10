@@ -1,40 +1,25 @@
-/*	Epithelial Topology Toolbox
- *
- *	Functions: 
- * 		cellPosition2areaSegment(): get the nuclei postions (center of mass from 
- *		the Results table) and build the Voronoi diagram (the cell area 
- *		projection).
- * 		
- *		NFN_count(): get the cell area projections and count the number of
- *		nearest neigbor of each cell. Cells in the edge of the image are 
- *		counted as first neighbors, but excluded in the image (See the 
- *		markedNeighborArray). Other shape descrioptors are also obtained to 
- *		measure anisotropy of each cell area projection.
- *		
- *		adjMatrix(): get the cell area projections and calculates the RCC table.
- *		The RCC table is the adjacency table of each cell and it depends on the
- *		RCC8D plugin 
- *		(https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/).
- *
- *		adjMatrix2mesh(): draws the edges of the cell network over the area 
- *		segment	image. Need some improvements...
- *		
- *		imgProcessing_v??(): apply processing filter to the image. Each version
- *		adds a different processing step. v10, only selects the blue channel.
- *		v11, subtract background. v12, enhance contrast. v13, apply Gaussian
- *		filter with sigma=2; v14, subtract the background with radius=160;
- *		v16 was built using the SNR criteria; v17 is the three major processing
- *		steps. These functions will be deprected in the future and only the 
- *		imgProcessor() will be used.
- *
+/* Epithelial Topology Toolbox
+ * 
+ * Scripts in ImageJ's macro language for image analysis. R scripts are for 
+ * data analysis and figures plots. These scripts were developed for the image 
+ * analysis of the "Stochastic Model" project written by Mauro C. C. Morais at 
+ * the Mathematical Modeling Group, Institute of Cancer of the State of São 
+ * Paulo (ICESP), Department of Radiology and Oncology, Faculty of Medicine, 
+ * University of São Paulo (FMUSP), São Paulo, Brazil. If you have any further 
+ * questions, please see the README.md file and get in contact with us. 
+ * 
+ * Please cite our paper :)
+ * Morais et al., Scientific Reports, 2017, 7(1):8026.
+ * http://www.nature.com/articles/s41598-017-07553-6
+ * 
+ * These macro codes are free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation (GNU General Public License v3.0). It is 
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY 
+ * and LIABILITY; without even the implied warranty of fitness for a particular 
+ * purpose. See the GNU General Public License for more details.
+ * 
  * Mauro Morais, 2019-04-30
- *
- * DISCLAIMER: Original content from this work may be used under the terms of 
- * the Creative Commons Attribution 3.0 licence 
- * (http://creativecommons.org/licenses/by/3.0). Any further distribution of 
- * this work must maintain attribution to the author(s).
- *
- * WARRANTIES: None. Use at your own risk.
  * 
  */
 
@@ -50,6 +35,8 @@
  		"-", 
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
  		"adjMatrix2mesh", 
+ 		"-",
+ 		"Jaccard Index",
  		"-", 
  		"About"
  	));
@@ -75,6 +62,7 @@
  		if(MCmd == "adjMatrix2mesh") {runMacro("ETT/adjMatrix2mesh.ijm");}//{adjMatrix2mesh();}
  		if(MCmd == "NFN_count") {runMacro("ETT/NFN_count.ijm");}//{NFN_count();}
  		if(MCmd == "adjMatrix (RCC)") {runMacro("ETT/adjMatrix.ijm");} //{adjMatrix();}
+ 		if(MCmd == "Jaccard Index"){runMacro("ETT/jaccardIndex.ijm");}
  		if(MCmd == "About") {runMacro("ETT/about.ijm");} //{about();}
  	}
  }

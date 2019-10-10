@@ -23,13 +23,15 @@ macro "Jaccard Index" {
 
 	items = getList("image.titles");
 
+	// Need to check if both images are binary.
+
 	Dialog.create("Estimate Jaccard index between two binary images");
 	Dialog.addChoice("Image A:", items);
 	Dialog.addChoice("Image B:", items);
 	Dialog.show();
 
 	imgA = Dialog.getChoice();
-	imgB = Dialog.getChoice();;
+	imgB = Dialog.getChoice();
 
 	/* the 'mean' is included in the measurements to check the segments area */
 	run("Set Measurements...", "area mean redirect=None decimal=4");
