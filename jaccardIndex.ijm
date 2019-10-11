@@ -55,6 +55,10 @@ macro "Jaccard Index" {
 	/* Return Jaccard index */
 	jac = areaIntersection / areaUnion;
 
+	setResult("Region", 0, "Intersection");
+	setResult("Region", 1, "Union");
+	updateResults();
+
 	//print("\\Clear");
 	print("Jaccard Index: " + jac);
 }
