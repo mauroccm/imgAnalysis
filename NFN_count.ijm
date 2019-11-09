@@ -54,7 +54,7 @@
 		Angle = newArray(nResults);
 		Feret = newArray(nResults);
 		FeretAngle = newArray(nResults);
-		Aniso = newArray(nResults);
+		NAR = newArray(nResults);
 
 		for(l = 0; l < nResults; l++){
 			Major[l] = getResult("Major", l);
@@ -65,8 +65,8 @@
 			Feret[l] = getResult("Feret", l);
 			FeretAngle[l] = getResult("FeretAngle", l);
 
-			// Calculate the cell anisotropy (Legoff, 2013, Development,  doi:10.1242/dev.090878)
-			Aniso[l] = ((Major[l]/2) - (Minor[l]/2)) / ((Major[l]/2) + (Minor[l]/2));
+			// Calculate the normalized aspect ratio (NAR)
+			NAR[l] = ((Major[l]/2) - (Minor[l]/2)) / ((Major[l]/2) + (Minor[l]/2));
 		}
 
 		// Get cell coordinates
@@ -128,7 +128,7 @@
 
 		// to show all particles count.
 		Array.show(imgName + "_NFN", cellID, XMass, YMass, neighborArray, markedNeighborArray, 
-			Major, Minor, AR, Circ, Angle, Feret, FeretAngle, Aniso);
+			Major, Minor, AR, Circ, Angle, Feret, FeretAngle, NAR);
 
 	}
 }
