@@ -11,7 +11,10 @@ macro "adjMatrix2mesh" {
 //function adjMatrix2mesh(){ // RCC2mesh.ijm
 
 	// Set Measurements
-	edgeCol = "red";
+	// edgeCol = "red";
+	run("Set Measurements...", "area centroid center perimeter bounding nan redirect=None decimal=4");
+	run("Overlay Options...", "stroke=red width=4 fill=none apply set");
+
 	imgID = getImageID();
 	imgName = File.nameWithoutExtension;
 	run("Clear Results");
@@ -22,6 +25,7 @@ macro "adjMatrix2mesh" {
 	run("Points from Mask"); // This is a Fiji command
 	getSelectionCoordinates(cellA, cellB); // the cell pairs indexes
 	
+	// Cell pairs positions
 	x0 = newArray(cellA.length);
 	y0 = newArray(cellA.length);
 
@@ -29,8 +33,10 @@ macro "adjMatrix2mesh" {
 	y1 = newArray(cellA.length);
 
 	selectImage(imgID);
+	// to exclude edge particles
 	run("Analyze Particles...", " show=Masks display exclude clear include record in_situ");
 
+	// Get particles positions
 	for (j = 0; j < cellA.length; j++) {
 
 		//cell1 = cellA[j];
@@ -41,22 +47,18 @@ macro "adjMatrix2mesh" {
 
 		x1[j] = getResult("XM", cellB[j]);
 		y1[j] = getResult("YM", cellB[j]);
+	}
 
-		selectImage(imgID);
+	// Draw topology edges
+	selectImage(imgID);
+	run("Clear Results");
+	
+	for(j = 0; j < cellA.length; j ++) {
 		makeLine(x0[j], y0[j], x1[j], y1[j]);
-		// drawLine(x0[j], y0[j], x1[j], y1[j]);
-		// roiManager("add & draw");
-		roiManager("add"); // Add edges to ROI manager to generate edges list
-		
+		run("Measure");
+		run("Add Selection..."); // add to overlay
+		run("Select None");
 		
 	}
 
-	run("Clear Results");
-	roiManager("Show All without labels");
-	roiManager("Set Color", edgeCol);
-	roiManager("Set Line Width", 4);
-	//roiManager("Save", edgesDir + segmentsFiles[i] + "_edgesRois.zip");
-	roiManager("multi-measure measure_all");
-	//saveAs("Results", edgesDir + segmentsFiles[i] + "_edgesResults.txt");
-	//run("Clear Results");
 }
