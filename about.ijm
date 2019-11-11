@@ -13,9 +13,13 @@ macro "about" {
 		+"    2. estimate the cell area projection (Voronoi tesselation);\n"
 		+"    3. draw epithelial topology mesh over the cells (Region connection calculus).\n"
 		+" \n"
-		+"For the most recent version and instructions please visit my GitHub page."
+		+"For the most recent version and instructions please visit the GitHub page."
 		+" \n"
-		+"DISCLAIMER: monomonomonomonomonomonomonomo";
+		+" \n"
+		+"LICENSE: These macro codes are free software; you can redistribute it and/or modify it under the terms of\n"
+		+"the GNU General Public License as published by the Free Software Foundation (GNU General Public License v3.0).\n"
+		+"It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY and LIABILITY; without even\n"
+		+"the implied warranty of fitness for a particular purpose. See the GNU General Public License for more details.\n";
 
 	url = "https://github.com/mauroccm/imgAnalysis";
 
