@@ -24,7 +24,8 @@
 
 	} else {
 
-		imgName = File.nameWithoutExtension();
+		//imgName = File.nameWithoutExtension();
+		imgName = replace(getTitle(), ".tif", "");
 		id = getImageID();
 
 		// Generate cell positions table
@@ -47,14 +48,14 @@
 
 		// get cell area projection metrics
 		Table.sort("YStart"); // so it matches with the final results
-		Major = newArray(nResults);
-		Minor = newArray(nResults);
-		AR = newArray(nResults);
-		Circ = newArray(nResults);
-		Angle = newArray(nResults);
-		Feret = newArray(nResults);
-		FeretAngle = newArray(nResults);
-		NAR = newArray(nResults);
+		Major = newArray(nResults); // Major axis
+		Minor = newArray(nResults); // Minor axis
+		AR = newArray(nResults); // Aspect Ratio
+		Circ = newArray(nResults); // Circularity
+		Angle = newArray(nResults); // Angle betweem Major and X axis
+		Feret = newArray(nResults); // Feret diameter
+		FeretAngle = newArray(nResults); // Angle between Feret diameter and X axis
+		NAR = newArray(nResults); // Normalized aspect ratio
 
 		for(l = 0; l < nResults; l++){
 			Major[l] = getResult("Major", l);
@@ -74,7 +75,7 @@
 
 			XStart[l]=getResult("XStart", l);
 			YStart[l]=getResult("YStart", l);
-			toUnscaled(XStart[l], YStart[l]);
+			toUnscaled(XStart[l], YStart[l]); // to get results without scale
 
 			XMass[l]=getResult("XM", l);
 			YMass[l]=getResult("YM", l);
