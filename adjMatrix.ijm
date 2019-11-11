@@ -27,17 +27,18 @@ macro "adjMatrix" {
 
 		setBackgroundColor(0, 0, 0);
 
-		imgName = getTitle();
-		//imgName = File.nameWithoutExtension;
+		//name = replace(getTitle(), "areaSegments.tif", "adjMatrix.tif");
+		imgName = File.nameWithoutExtension;
 		
 		id = getImageID();
 
+		// Edges are excluded
 		run("Analyze Particles...", "  show=Masks display exclude clear include record in_situ");
 
 		run("Duplicate...", "title=copy");
 
 		/* The latest version of RCC8D plugin is much faster v.2.5 is much faster */
-		run("RCC8D UF Multi", "x=" + imgName + " y=copy show=RCC8D+");
+		run("RCC8D UF Multi", "x=copy y=copy show=RCC8D+");
 
 		close("copy");
 
@@ -54,8 +55,8 @@ macro "adjMatrix" {
 		run("Clear", "slice");
 		run("Select None");
 
-		rename(imgName + "_adjMatrix");
-		saveAs("tiff", imgName + "_adjMatrix.tif");
+		//rename(imgName + "_adjMatrix");
+		//saveAs("tiff", imgName + "_adjMatrix.tif");
 
 	}
 
