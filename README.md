@@ -59,9 +59,6 @@ This macro draws the edges of the cell network over the area segment image. Open
 This macro calculate the Jaccard Index ([JI](https://en.wikipedia.org/wiki/Jaccard_index)) between two images binary images and retunrs the value in the log window.
 ![](./figures/jaccardIndexFigure.png)
 
-### tortuosityDistribution_macroTool.ijm
-Macro tool added.
-
 ***
 ### Instalation
 1. Unzip the [ETT.zip](./ETT.zip) file in your `Fiji.app/macros/` directory. This should create a new `./ETT/` folder in your macros directory.
