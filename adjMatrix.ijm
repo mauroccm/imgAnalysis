@@ -1,10 +1,15 @@
-// Calculate the adjacency matrix (adjMatrix) based on the RCC table from the 
-// RCC Multi8+ plugin.
-//
-// INPUT: cell area segments image.
-// OUTPUT: The adjacency matrix image.
-//
-// https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/
+/*
+ * Calculate the adjacency matrix (adjMatrix) based on the RCC table from the 
+ * RCC Multi8+ plugin.
+ *
+ * INPUT: cell area segments image.
+ * OUTPUT: The adjacency matrix image.
+ *
+ * https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/
+ *
+ * Acknowledgements to Gabriel Landini, University of Birmingham;
+ * for providing the RCC8+ plugin.
+*/
 
 
 macro "adjMatrix" {

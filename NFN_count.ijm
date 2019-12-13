@@ -5,6 +5,10 @@
  * INPUT: cell area segments binary image.
  * OUTPUT: cell area segments with number of first neighbors highligted and
  * array of first neighbors of each cell.
+ *
+ * Acknowledgements to Jan Brocher, the Biovoxxel Toolbox;
+ * for providing the code.
+ *
  */
 
  macro "NFN_count" {
