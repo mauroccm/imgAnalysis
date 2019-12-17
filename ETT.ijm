@@ -34,7 +34,7 @@
  		"Count Cells",
  		"-", 
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
- 		"adjMatrix2mesh", "getCellLayers",
+ 		"adjMatrix2mesh", "getCellLayers", "getBorder",
  		"-",
  		"Jaccard Index",
  		"-", 
@@ -65,6 +65,7 @@
  		if(MCmd == "Jaccard Index"){runMacro("ETT/jaccardIndex.ijm");}
  		if(MCmd == "getCellLayers") {runMacro("ETT/getCellLayers.ijm");}
  		if(MCmd == "About") {runMacro("ETT/about.ijm");} //{about();}
+ 		if(MCmd == "getBorder") {runMacro("ETT/getBorder.ijm");}
  	}
  }
 
