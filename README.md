@@ -55,6 +55,26 @@ This macro draws the edges of the cell network over the area segment image. Open
 
 ![](./figures/adjMatrix2meshFigure.png)
 
+#### getCellLayers
+This macro returns the image of each cell layer from the melanoma cluster.
+
+It requires the BinaryReconstruct function form the [Morphology](https://beardatashare.bham.ac.uk/getlink/fiLUS55SmtWwJKijDRbwqv9p/morphology.zip) plugin. It also depends of the 'glasbey_on_dark.lut' available on Fiji.
+ 
+Special thanks to G. Landini, Univ. of Birmingham, for sharing the code.
+Landini and Othman, 2003, J. of Microscopy, 
+DOI: 10.1046/j.1365-2818.2003.01113.x
+
+![](./figures/getCellLayersFigure.png)
+
+#### getBorder
+This scripts returns the line between keratinocytes and melanoma cluster. The input image must be binary and cell cross-section area (Voronoi) of the keratinocytes surrounding the melanoma domain.
+
+Special thanks to G. Landini, Univ. of Birmingham;
+Landini and Othman, 2003, J. of Microscopy, 
+DOI: 10.1046/j.1365-2818.2003.01113.x
+
+![](./figures/getBorderFigure.png)
+
 #### jaccardIndex
 This macro calculate the Jaccard Index ([JI](https://en.wikipedia.org/wiki/Jaccard_index)) between two images binary images and retunrs the value in the log window.
 ![](./figures/jaccardIndexFigure.png)
