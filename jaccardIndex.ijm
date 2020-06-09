@@ -8,7 +8,7 @@
  * https://en.wikipedia.org/wiki/Jaccard_index
  * 
  * Mauro Morais, 2019-05-03
- * Acknowledgements to Robert Haase, Myers lab, MPICBG;
+ * Special tanks to Robert Haase, Myers lab, MPICBG;
  * for providing the code.
  */
 
