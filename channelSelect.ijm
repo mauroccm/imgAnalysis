@@ -1,67 +1,54 @@
-var myMenu = newMenu("Color Channel Select Menu Tool", 
- 	newArray(
- 		"Red",
- 		"Green",
- 		"Blue"));
-
-macro "Color Channel Select Menu Tool - Cf00F005fC0f0F505fC00fFa05f" {
-
-	cmd = getArgument();
-
-	if(cmd != "-"){
-		if(cmd == "Red") {red();}
- 		if(cmd == "Green") {green();}
- 		if(cmd == "Blue") {blue();}
-	}
+// Chek if the image is open
+if(nImages == 0) {
+	runMacro("ETT/warnings.ijm", 4);
+	exit;
 }
 
+// Check if the image is RGB
+if(bitDepth() != 24) {
+	runMacro("ETT/warnings.ijm", 4);
+	exit;
+}
+
+// Dialog box
+items = newArray("Red", "Green", "Blue");
+
+Dialog.create("Channel Select");
+Dialog.addChoice("Channel?", items, "Blue");
+Dialog.show();
+
+choice = Dialog.getChoice();
+
+// Options
+if(choice != "-"){
+	if(choice == "Red") {red();}
+	if(choice == "Green") {green();}
+	if(choice == "Blue") {blue();}
+}
+
+// Select the red channel
 function red(){
 	Name = getTitle();
-
 	run("Split Channels");
-
-	selectWindow(Name + " (green)");
-	close();
-
-	selectWindow(Name + " (blue)");
-	close();
-
+	close(Name + " (green)");
+	close(Name + " (blue)");
 	selectWindow(Name + " (red)");
-	//saveAs("Tiff", Name + "_redChannel.tif");
-	//close();
-
 }
 
+// Select the green channel
 function green(){
 	Name = getTitle();
-
 	run("Split Channels");
-
-	selectWindow(Name + " (red)");
-	close();
-
-	selectWindow(Name + " (blue)");
-	close();
-
+	close(Name + " (red)");
+	close(Name + " (blue)");
 	selectWindow(Name + " (green)");
-	//saveAs("Tiff", Name + "_greenChannel.tif");
-	//close();
-
 }
 
+// Select the blue channel
 function blue(){
 	Name = getTitle();
-
 	run("Split Channels");
-
-	selectWindow(Name + " (red)");
-	close();
-
-	selectWindow(Name + " (green)");
-	close();
-
+	close(Name + " (red)");
+	close(Name + " (green)");
 	selectWindow(Name + " (blue)");
-	//saveAs("Tiff", Name + "_blueChannel.tif");
-	//close();
-
 }

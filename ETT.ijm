@@ -55,7 +55,8 @@
  		//if(MCmd == "imgProcessing_v14") {imgProcessing_v14();}
  		//if(MCmd == "imgProcessing_v16") {imgProcessing_v16();}
  		//if(MCmd == "imgProcessing_v17") {imgProcessing_v17();}
- 		if(MCmd == "Channel Select") {run("Install...", "install=" + imagej + "macros/ETT/channelSelect.ijm");}
+ 		//if(MCmd == "Channel Select") {run("Install...", "install=" + imagej + "macros/ETT/channelSelect.ijm");}
+ 		if(MCmd == "Channel Select") {runMacro("ETT/channelSelect.ijm");}
  		if(MCmd == "imgProcessor (v16)") {runMacro("ETT/imgProcessor.ijm");}//{imgProcessor();}
  		if(MCmd == "Count Cells") {runMacro("ETT/CountCells.ijm");}
  		if(MCmd == "cellPosition2areaSegment") {runMacro("ETT/cellPosition2areaSegment.ijm");}//{cellPosition2areaSegment();}

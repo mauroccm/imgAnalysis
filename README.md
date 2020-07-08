@@ -13,7 +13,7 @@ USAGE:
 Scrip to evaluate the computer performance when calling `AutoCount.ijm` macro script. The script calls the Fiji macro `AutoCounter.ijm` in _headless_ mode to perform the count using the `\bin\time`. (Original script version is `AutoCellCounter_Global_v127.ijm`)
 
 ***
-## Epithelial Topology Toolbox (#ETT)
+## Epithelial Topology Toolbox
 This macro toolset contains a set of ImageJ's macro functions designed to process 8-bit images (to make it more "segmentable" for thresholding models); to estimate the cell area projection (Voronoi tesselation); and to draw epithelial topology mesh over the cells (Region connection calculus).
 
 ![](./figures/ETTFigure.png)
@@ -35,30 +35,30 @@ This script counts the number of cells (particles) in the image. It opens the pr
 ![](./figures/CountCellsFigure.png)
 
 #### cellPosition2areaSegment
-This macro get the nuclei postions (center of mass from the Results table) and build the Voronoi diagram (the cell area projection).
+This macro get the nuclei positions (center of mass from the Results table) and build the Voronoi diagram (the cell area projection).
 
 ![](./figures/cellPosition2areaSegmentsFigure.png)
 
 #### NFN_count
-This macro get the cell area projections and count the number of nearest neigbor of each cell. Cells in the edge of the image are counted as first neighbors, but excluded in the image (See the markedNeighborArray). Other shape descriptors are also obtained to measure anisotropy of each cell area projection. This function was dadpted from [Neighbor Analysis](https://imagej.net/BioVoxxel_Toolbox#Neighbor_Analysis) of the Biovoxxel Toolbox.
+This macro get the cell area projections and count the number of nearest neighbor of each cell. Cells in the edge of the image are counted as first neighbors, but excluded in the image (See the markedNeighborArray). Other shape descriptors are also obtained to measure anisotropy of each cell area projection. This function was adapted from [Neighbor Analysis](https://imagej.net/BioVoxxel_Toolbox#Neighbor_Analysis) of the Biovoxxel Toolbox.
 
 ![](./figures/NFNcountFigure.png)
 	
 #### adjMatrix
-This macro get the cell area projections and calculates the RCC table. The RCC table is the adjacency table of each cell and it depends on the RCC8D plugin 
+This macro get the cell area projections and calculates the RCC table. The RCC table is the adjacency table of each cell and it depends on the RCC8D plug-in 
 (https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/).
 
 ![](./figures/adjMatrixFigure.png)
 
 #### adjMatrix2mesh
-This macro draws the edges of the cell network over the area segment image. Open the adjacency matrix file, generated with the `adjMatrix` macro, rename it to `adjMatrix`, and open the cell area projection before runnig the script.
+This macro draws the edges of the cell network over the area segment image. Open the adjacency matrix file, generated with the `adjMatrix` macro, rename it to `adjMatrix`, and open the cell area projection before running the script.
 
 ![](./figures/adjMatrix2meshFigure.png)
 
 #### getCellLayers
 This macro returns the image of each cell layer from the melanoma cluster.
 
-It requires the BinaryReconstruct function form the [Morphology](https://beardatashare.bham.ac.uk/getlink/fiLUS55SmtWwJKijDRbwqv9p/morphology.zip) plugin. It also depends of the 'glasbey_on_dark.lut' available on Fiji.
+It requires the BinaryReconstruct function form the [Morphology](https://beardatashare.bham.ac.uk/getlink/fiLUS55SmtWwJKijDRbwqv9p/morphology.zip) plug-in. It also depends of the 'glasbey_on_dark.lut' available on Fiji.
  
 Special thanks to G. Landini, Univ. of Birmingham, for sharing the code.
 Landini and Othman, 2003, J. of Microscopy, 
@@ -76,17 +76,18 @@ DOI: 10.1046/j.1365-2818.2003.01113.x
 ![](./figures/getBorderFigure.png)
 
 #### jaccardIndex
-This macro calculate the Jaccard Index ([JI](https://en.wikipedia.org/wiki/Jaccard_index)) between two images binary images and retunrs the value in the log window.
+This macro calculate the Jaccard Index ([JI](https://en.wikipedia.org/wiki/Jaccard_index)) between two images binary images and returns the value in the log window.
 
 ![](./figures/jaccardIndexFigure.png)
 
 ***
-### Instalation
+### Installation
 
 0. Close ImageJ/Fiji (if it's open) and dowload (or clone) the master ZIP file.
-1. Unzip the `imgAnalysis-master.zip` file in your `Fiji.app/macros/` directory. This should create a new `./imgAnalysis-master/` folder in your macros directory.
-2. Start Fiji.
-3. Go to _Plugins > Macros > Install..._ and select the `ETT/ETT.ijm` file in your `macros` folder.
+1. Create `ETT/` folder inside the ImageJ/Fiji macros folder.
+2. Unzip all the `imgAnalysis-master.zip` files in your recently created `Fiji.app/macros/ETT/` directory.
+3. Start ImageJ/Fiji.
+4. Go to _Plugins > Macros > Install..._ and select the `Fiji.app/macros/ETT.ijm` file in your `macros` folder.
 
 ***
 ### License
