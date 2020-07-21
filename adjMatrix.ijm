@@ -60,6 +60,8 @@ macro "adjMatrix" {
 		run("Clear", "slice");
 		run("Select None");
 
+		rename("adjMatrix");
+
 		//rename(imgName + "_adjMatrix");
 		//saveAs("tiff", imgName + "_adjMatrix.tif");
 

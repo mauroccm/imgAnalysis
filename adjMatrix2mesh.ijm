@@ -61,4 +61,13 @@ macro "adjMatrix2mesh" {
 		
 	}
 
+	// Add edges positions to results table
+	for (i = 0; i < nResults; i++) {
+		setResult("x0", i, x0[i]);
+		setResult("y0", i, y0[i]);
+		setResult("x1", i, x1[i]);
+		setResult("y1", i, y1[i]);
+	}
+	updateResults();
+
 }

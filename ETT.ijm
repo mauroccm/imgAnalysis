@@ -36,6 +36,8 @@
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
  		"adjMatrix2mesh", "getCellLayers", "getBorder",
  		"-",
+ 		"Local Orientation", "Local Orientation (Layers)",
+ 		"-",
  		"Jaccard Index",
  		"-", 
  		"About"
@@ -63,6 +65,8 @@
  		if(MCmd == "adjMatrix2mesh") {runMacro("ETT/adjMatrix2mesh.ijm");}//{adjMatrix2mesh();}
  		if(MCmd == "NFN_count") {runMacro("ETT/NFN_count.ijm");}//{NFN_count();}
  		if(MCmd == "adjMatrix (RCC)") {runMacro("ETT/adjMatrix.ijm");} //{adjMatrix();}
+ 		if(MCmd == "Local Orientation") {runMacro("ETT/localOrientation_.ijm");}
+ 		if(MCmd == "Local Orientation (Layers)") {runMacro("ETT/localOrientationLayer.ijm");}
  		if(MCmd == "Jaccard Index"){runMacro("ETT/jaccardIndex.ijm");}
  		if(MCmd == "getCellLayers") {runMacro("ETT/getCellLayers.ijm");}
  		if(MCmd == "About") {runMacro("ETT/about.ijm");} //{about();}

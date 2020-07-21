@@ -16,40 +16,39 @@
 
  	 //Check if the cell area segment image is open.
  	if(nImages == 0) {
- 		
- 		imagej = getDirectory("imagej");
-		runMacro(imagej + "macros/ETT/warnings.ijm", 1);
- 		//warnings(1);
+ 		runMacro("/ETT/warnings.ijm", 1);
 
  	// Check if the image is binary.
 	} else if(!is("binary")) {
-
-		warnings(2);
+		runMacro("ETT/warnings.ijm", 2);
 
 	} else {
 
-		//imgName = File.nameWithoutExtension();
-		imgName = replace(getTitle(), ".tif", "");
+		imgName = File.nameWithoutExtension;
+		//imgName = replace(getTitle(), ".tif", "");
 		id = getImageID();
 
 		// Generate cell positions table
 		run("Set Measurements...", "area centroid center perimeter bounding shape feret's fit nan redirect=None decimal=2");
-		run("Analyze Particles...", "  show=Masks display clear include record in_situ");
+		run("Particles8 ", "white morphology show=Particles minimum=0 maximum=9999999 display overwrite redirect=None");
+		//run("Analyze Particles...", "  show=Masks display clear include record in_situ");
 
 		// Variables
-		initialParticles=nResults; // numbr. of cells in the image
-		XStart=newArray(nResults); // cell top-left pixel
-		YStart=newArray(nResults);
+		initialParticles = nResults; // numbr. of cells in the image
+		XStart = newArray(initialParticles); // cell top-left pixel
+		YStart = newArray(initialParticles);
 
-		cellID = newArray(nResults); // cell ID
+		cellID = newArray(initialParticles); // cell ID
 
-		XMass=newArray(nResults); // center of mass
-		YMass=newArray(nResults);
+		XMass = newArray(initialParticles); // center of mass
+		YMass = newArray(initialParticles);
 
-		neighborArray = newArray(nResults);
+		Area = newArray(initialParticles); // cell area projection
+
+		neighborArray = newArray(initialParticles);
 		neighbors = 0;
 		mostNeighbors = 0; // to count
-
+/*
 		// get cell area projection metrics
 		Table.sort("YStart"); // so it matches with the final results
 		Major = newArray(nResults); // Major axis
@@ -73,17 +72,19 @@
 			// Calculate the normalized aspect ratio (NAR)
 			NAR[l] = ((Major[l]/2) - (Minor[l]/2)) / ((Major[l]/2) + (Minor[l]/2));
 		}
-
+*/
 		// Get cell coordinates
 		for(l = 0; l < initialParticles; l ++) {
 
-			XStart[l]=getResult("XStart", l);
-			YStart[l]=getResult("YStart", l);
+			XStart[l] = getResult("XStart", l);
+			YStart[l] = getResult("YStart", l);
 			toUnscaled(XStart[l], YStart[l]); // to get results without scale
 
-			XMass[l]=getResult("XM", l);
-			YMass[l]=getResult("YM", l);
+			XMass[l] = getResult("XM", l);
+			YMass[l] = getResult("YM", l);
 			toUnscaled(XMass[l], YMass[l]);
+
+			Area[l] = getResult("Area", l);
 
 			cellID[l] = l + 1;
 		}
@@ -96,7 +97,7 @@
 
 			doWand(XStart[i],YStart[i], 0, "8-connected");		
 			run("Enlarge...", "enlarge=2");		
-			run("Analyze Particles...", "size=0-Infinity circularity=0.00-1.00 show=Nothing clear record");		
+			run("Analyze Particles...", "size=0-Infinity circularity=0.00-1.00 show=Nothing display clear record");
 			neighbors = nResults-1;		
 			neighborArray[i] = neighbors;
 		}
@@ -105,7 +106,7 @@
 		selectImage(id);
 		run("Select None");
 		run("Duplicate...", "title=[" + imgName + "_NFN]");
-		run("Set Measurements...", "area centroid nan redirect=None decimal=2");
+		run("Set Measurements...", "area centroid center nan redirect=None decimal=2");
 		run("Analyze Particles...", "  show=Masks exclude clear include record in_situ");
 		display = getTitle();
 		run("Create Selection");
@@ -116,9 +117,11 @@
 		Array.fill(markedNeighborArray, 0);
 		
 		// Fill cells with color according to number of first neighbors
-		for(mark=0; mark<initialParticles; mark++) {
+		for(mark = 0; mark < initialParticles; mark ++) {
+
+			// The selection will tell the marked cells (non-edges)
 			if (selectionContains(XStart[mark], YStart[mark])) {
-				markValue=neighborArray[mark];
+				markValue = neighborArray[mark];
 				setForegroundColor(markValue, markValue, markValue);
 				floodFill(XStart[mark],YStart[mark], "8-connected");
 				// to count the selected (edge-excluded) particles
@@ -132,8 +135,8 @@
 		//saveAs("tiff", imgName + "_NFNcount.tif");
 
 		// to show all particles count.
-		Array.show(imgName + "_NFN", cellID, XMass, YMass, neighborArray, markedNeighborArray, 
-			Major, Minor, AR, Circ, Angle, Feret, FeretAngle, NAR);
+		Array.show(imgName + "_NFN", cellID, Area, XStart, YStart, neighborArray, markedNeighborArray); 
+			//Major, Minor, AR, Circ, Angle, Feret, FeretAngle, NAR);
 
 	}
 }
