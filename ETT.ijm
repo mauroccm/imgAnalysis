@@ -36,15 +36,15 @@
  		"cellPosition2areaSegment",	"NFN_count", "adjMatrix (RCC)",	
  		"adjMatrix2mesh", "getCellLayers", "getBorder",
  		"-",
- 		"Local Orientation", "Local Orientation (Layers)",
+ 		"Local Orientation", "Local Orientation (Layers)", "Draw orientation vectors",
  		"-",
  		"Jaccard Index",
  		"-", 
  		"About"
  	));
 
- macro "Epithelial Topology Menu Tool - C606F00ffCff0T1b08ET6b08TTbb08T" {
-
+ //macro "Epithelial Topology Menu Tool - C606F00ffCff0T1b08ET6b08TTbb08T" {
+ macro "Epithelial Topology Menu Tool - Cf00Gd6e6e7e7e7e8d8d8d9d9d9cacacababbbbabab9c9c8c8c8c7c7c6c6c5c5c5c4c4b4b4b4b3b3a3a3a3939394848484747575656666675758585859595a5a5b5b5b5c5c5c5d5d5d6d600Cf00L98e1Cf00L9842Cf00L9809Cf00L983fCf00L98fc" {
  	imagej = getDirectory("imagej");
 
  	MCmd = getArgument();
@@ -67,6 +67,7 @@
  		if(MCmd == "adjMatrix (RCC)") {runMacro("ETT/adjMatrix.ijm");} //{adjMatrix();}
  		if(MCmd == "Local Orientation") {runMacro("ETT/localOrientation_.ijm");}
  		if(MCmd == "Local Orientation (Layers)") {runMacro("ETT/localOrientationLayer.ijm");}
+ 		if(MCmd == "Draw orientation vectors") {runMacro("ETT/drawLocalOrientationVectors.ijm")}
  		if(MCmd == "Jaccard Index"){runMacro("ETT/jaccardIndex.ijm");}
  		if(MCmd == "getCellLayers") {runMacro("ETT/getCellLayers.ijm");}
  		if(MCmd == "About") {runMacro("ETT/about.ijm");} //{about();}

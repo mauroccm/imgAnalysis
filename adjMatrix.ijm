@@ -37,8 +37,8 @@ macro "adjMatrix" {
 		
 		id = getImageID();
 
-		// Edges are excluded
-		run("Analyze Particles...", "  show=Masks display exclude clear include record in_situ");
+		// Cells touching the image borders are included
+		run("Analyze Particles...", "  show=Masks display clear include record in_situ");
 
 		run("Duplicate...", "title=copy");
 

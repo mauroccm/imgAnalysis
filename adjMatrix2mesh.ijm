@@ -33,10 +33,10 @@ macro "adjMatrix2mesh" {
 	y1 = newArray(cellA.length);
 
 	selectImage(imgID);
-	// to exclude edge particles
-	run("Analyze Particles...", " show=Masks display exclude clear include record in_situ");
+	// Cells at the border of the image are included
+	run("Analyze Particles...", " show=Masks display clear include record in_situ");
 
-	// Get particles positions
+	// Get cells positions
 	for (j = 0; j < cellA.length; j++) {
 
 		//cell1 = cellA[j];
@@ -49,7 +49,7 @@ macro "adjMatrix2mesh" {
 		y1[j] = getResult("YM", cellB[j]);
 	}
 
-	// Draw topology edges
+	// Draw topology edges to ovelay
 	selectImage(imgID);
 	run("Clear Results");
 	
@@ -67,7 +67,10 @@ macro "adjMatrix2mesh" {
 		setResult("y0", i, y0[i]);
 		setResult("x1", i, x1[i]);
 		setResult("y1", i, y1[i]);
+		setResult("cellA", i, cellA[i]);
+		setResult("cellB", i, cellB[i]);
 	}
+	Table.sort("cellA");
 	updateResults();
 
 }

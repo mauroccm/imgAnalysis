@@ -1,6 +1,6 @@
 /*
  * This scripts returns the line between keratinocytes and melanoma cluster.
- * The input image must be binary and cell cros section area (Voronoi) of the
+ * The input image must be binary and cell cross section area (Voronoi) of the
  * keratinocytes surrounding the melanoma domain.
  * 
  * Special thanks to G. Landini, Univ. of Birmingham;
@@ -13,7 +13,7 @@
 
 id = getImageID();
 title = getTitle();
-name = replace(title, "_layers.tif", "_border.png");
+//name = replace(title, "_layers.tif", "_border.png");
 setThreshold(1, 255);
 setOption("BlackBackground", true);
 run("Convert to Mask");
@@ -24,5 +24,5 @@ run("Invert");
 run("Dilate");
 imageCalculator("AND", title, "copy");
 //saveAs("png", outputDir + "/" + name);
-close(id);
-close("copy");
+//close(id);
+//close("copy");
