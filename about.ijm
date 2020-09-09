@@ -11,7 +11,10 @@ macro "about" {
 		+" \n"
 		+"    1. process 8-bit images (to make it more \"segmentable\" for thresholding models);\n"
 		+"    2. estimate the cell area projection (Voronoi tesselation);\n"
-		+"    3. draw epithelial topology mesh over the cells (Region connection calculus).\n"
+		+"    3. draw epithelial topology mesh over the cells based on adjacency matrix (Region connection calculus);\n"
+		+" 	  4. estimate the cell layer with respect to the melanoma distance;\n"
+		+"    5. calculate the local cell orientation angle with respect to its first and second neighbors;\n"
+		+"    6. calculate image segmentation metrics.\n"
 		+" \n"
 		+"For the most recent version and instructions please visit the GitHub page."
 		+" \n"
@@ -25,7 +28,6 @@ macro "about" {
 
 	Dialog.create("About");
 		Dialog.addMessage(text);
-		//Dialog.addMessage("This is the Epithelial Topology Toolbox. \nThis macro toolset contains a set of ImageJ's macro functions designed\n to process 8-bit images (to make it more \"segmentable\" for thresholding models);\nto estimate the cell area projection (Voronoi tesselation);\nand to draw epithelial topology mesh over the cells (Region connection calculus).\nFor the most recent version please visit my GitHub page.");
 		Dialog.addMessage(url);
 		Dialog.addMessage("Created by Mauro Morais, 2019-04-30.");
 		Dialog.addHelp(url);

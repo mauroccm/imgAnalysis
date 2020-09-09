@@ -38,7 +38,7 @@
  		"-",
  		"Local Orientation", "Local Orientation (Layers)", "Draw orientation vectors",
  		"-",
- 		"Jaccard Index",
+ 		"Segmentation Evaluation",
  		"-", 
  		"About"
  	));
@@ -68,7 +68,7 @@
  		if(MCmd == "Local Orientation") {runMacro("ETT/localOrientation_.ijm");}
  		if(MCmd == "Local Orientation (Layers)") {runMacro("ETT/localOrientationLayer.ijm");}
  		if(MCmd == "Draw orientation vectors") {runMacro("ETT/drawLocalOrientationVectors.ijm")}
- 		if(MCmd == "Jaccard Index"){runMacro("ETT/jaccardIndex.ijm");}
+ 		if(MCmd == "Segmentation Evaluation"){runMacro("ETT/segmentationEvaluation.ijm");}
  		if(MCmd == "getCellLayers") {runMacro("ETT/getCellLayers.ijm");}
  		if(MCmd == "About") {runMacro("ETT/about.ijm");} //{about();}
  		if(MCmd == "getBorder") {runMacro("ETT/getBorder.ijm");}

@@ -13,6 +13,11 @@ macro "localOrientationLayer" {
   setBatchMode(true);
   // Store cell layers image in buffer (F)
   original = getTitle();
+  //cellType = "hacat";
+  Dialog.create("Select cell type");
+  Dialog.addChoice("Cell type", newArray("hacat", "sk147"), "hacat");
+  Dialog.show();
+  cellType = Dialog.getChoice();
   
   /*
   run("Duplicate...", "title=O");
@@ -40,7 +45,7 @@ macro "localOrientationLayer" {
   counter = 0;
   
   // Print the results header
-  print(" ,layer,X1,Y1,X2,Y2,cellAngle");
+  print(" ,layer,X1,Y1,X2,Y2,cellAngle,cellType");
   
   // Loop for layers
   for(i = 1; i <= layers; i ++){
@@ -143,7 +148,7 @@ macro "localOrientationLayer" {
   
       // Print results
       counter ++;
-      print(counter + "," +i+ "," +x1+ "," +y1+ "," +x2+ "," +y2+ "," + cellAngle);
+      print(counter + "," +i+ "," +x1+ "," +y1+ "," +x2+ "," +y2+ "," + cellAngle + "," + cellType);
   
       close("Recon*");
       close("See*");

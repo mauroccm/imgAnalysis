@@ -26,8 +26,17 @@ macro "localOrientation" {
   // Set a cell counter
   counter = 0;
 
+  // Set the cell type and layer
+  //cellType = "sk147";
+  Dialog.create("Select cell type");
+  Dialog.addChoice("Cell type", newArray("hacat", "sk147"), "hacat");
+  Dialog.show();
+  cellType = Dialog.getChoice();
+
+  layer = 0; // this only for single cell culture, since there's no layer
+
   // Print the results header
-  print(" ,X1,Y1,X2,Y2,cellAngle");
+  print(" ,layer,X1,Y1,X2,Y2,cellAngle,cellType");
 
 // Loop for layers
 //for(i = 1; i <= layers; i ++){
@@ -37,7 +46,7 @@ macro "localOrientation" {
   run("Duplicate...", "title=WI");
   
   // Extract the elements P of layer i and get their centers of mass (XM, YM)
-  run("Analyze Particles...", "  show=Masks display clear include exclude record in_situ");
+  run("Analyze Particles...", "  show=Masks display clear include record in_situ");
   XM = newArray(nResults);
   YM = newArray(nResults);
   major = newArray(nResults);
@@ -123,7 +132,7 @@ macro "localOrientation" {
 
     // Print results
     counter ++;
-    print(counter + "," +x1+ "," +y1+ "," +x2+ "," +y2+ "," + cellAngle);
+    print(counter + "," +layer+ "," +x1+ "," +y1+ "," +x2+ "," +y2+ "," + cellAngle + "," + cellType);
 
     close("Recon*");
     close("See*");

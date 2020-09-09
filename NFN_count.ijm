@@ -16,7 +16,7 @@
 
  	 //Check if the cell area segment image is open.
  	if(nImages == 0) {
- 		runMacro("/ETT/warnings.ijm", 1);
+ 		runMacro("ETT/warnings.ijm", 1);
 
  	// Check if the image is binary.
 	} else if(!is("binary")) {
