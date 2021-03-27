@@ -1,5 +1,5 @@
 # Image Analysis Scripts and Macros
-Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model" project written by [Mauro C. C. Morais](mailto:mauroccm@gmail.com) at the Mathematical Modeling Group, Institute of Cancer of the State of São Paulo (ICESP), Department of Radiology and Oncology, Faculty of Medicine, University of São Paulo ([FMUSP](http://www.fm.usp.br/fmusp/portal/)), São Paulo, Brazil. Please cite our [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
+Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model for Contact Inhibition of Proliferation" project written by [Mauro C. C. Morais](mailto:mauroccm@gmail.com) at the Mathematical Modeling Group, Institute of Cancer of the State of São Paulo (ICESP), Department of Radiology and Oncology, Faculty of Medicine, University of São Paulo ([FMUSP](http://www.fm.usp.br/fmusp/portal/)), São Paulo, Brazil. Please cite our [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
 
 ***
 ## AutoCount.ijm
@@ -13,7 +13,7 @@ USAGE:
 Scrip to evaluate the computer performance when calling `AutoCount.ijm` macro script. The script calls the Fiji macro `AutoCounter.ijm` in _headless_ mode to perform the count using the `\bin\time`. (Original script version is `AutoCellCounter_Global_v127.ijm`)
 
 ***
-## Epithelial Topology Toolbox (#ETT)
+## Epithelial Topology Toolbox
 This macro toolset contains a set of ImageJ's macro functions designed to process 8-bit images (to make it more "segmentable" for thresholding models); to estimate the cell area projection (Voronoi tesselation); and to draw epithelial topology mesh over the cells (Region connection calculus).
 
 ![](./figures/ETTFigure.png)
