@@ -1,5 +1,5 @@
 # Image Analysis Scripts and Macros
-Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model for Contact Inhibition of Proliferation" project written by [Mauro C. C. Morais](mailto:mauroccm@gmail.com) at the Mathematical Modeling Group, Institute of Cancer of the State of São Paulo (ICESP), Department of Radiology and Oncology, Faculty of Medicine, University of São Paulo ([FMUSP](http://www.fm.usp.br/fmusp/portal/)), São Paulo, Brazil. Please cite our [paper](http://www.nature.com/articles/s41598-017-07553-6) :)
+Scripts in ImageJ's macro language for image analysis. R scripts are for data analysis and figures plots. These scripts were developed for the image analysis of the "Stochastic Model for Contact Inhibition of Proliferation" project written by [Mauro C. C. Morais](mailto:mauroccm@gmail.com) at the Mathematical Modeling Group, Institute of Cancer of the State of São Paulo (ICESP), Department of Radiology and Oncology, Faculty of Medicine, University of São Paulo ([FMUSP](http://www.fm.usp.br/fmusp/portal/)), São Paulo, Brazil. Please cite our [paper](http://www.nature.com/articles/s41598-017-07553-6) and this [code](https://doi.org/10.5281/zenodo.4672534) :)
 
 ***
 ## AutoCount.ijm
@@ -89,3 +89,5 @@ This macro calculate the Jaccard Index ([JI](https://en.wikipedia.org/wiki/Jacca
 ***
 ### License
 These macro codes are free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation (GNU General Public License v3.0). It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY and LIABILITY; without even the implied warranty of fitness for a particular purpose. See the [GNU General Public License](./LICENSE) for more details. 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4672534.svg)](https://doi.org/10.5281/zenodo.4672534)
